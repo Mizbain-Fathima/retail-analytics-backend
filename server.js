@@ -19,7 +19,7 @@ const PORT = process.env.PORT || 3000;
 const allowedOrigins = [
   "http://localhost:5173",             // Vite local dev
   "http://localhost:4173",             // Vite preview
-  "https://retail-analytics-frontend-1s00.onrender.com/"
+  "https://retail-analytics-frontend-1s00.onrender.com"
 ];
 
 app.use(
