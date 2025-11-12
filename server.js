@@ -14,20 +14,27 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // -----------------------------
-// CORS Configuration
+// CORS Configuration (Fixed)
 // -----------------------------
 const allowedOrigins = [
-  "http://localhost:5173",            // local dev (Vite)
-  "https://your-frontend-url.com"     // ✅ replace with your frontend production URL
+  "http://localhost:5173",             // Vite local dev
+  "http://localhost:4173",             // Vite preview
+  "https://retail-analytics-frontend.onrender.com", // Render frontend (replace if different)
+  "https://retail-analytics-frontend.vercel.app"    // Vercel frontend (optional)
 ];
 
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin) return callback(null, true); // Allow server-to-server requests
-    if (allowedOrigins.includes(origin)) return callback(null, true);
-    return callback(new Error("CORS not allowed"), false);
-  }
-}));
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true); // Allow server-to-server or curl
+      if (allowedOrigins.includes(origin)) return callback(null, true);
+      console.warn("❌ Blocked CORS for origin:", origin);
+      return callback(new Error("CORS not allowed"), false);
+    },
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 
 // -----------------------------
 // 🚦 Rate Limiting
