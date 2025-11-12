@@ -1,33 +1,24 @@
-const { createClient } = require('redis');
+// Backend/config/redis.js
+const { createClient } = require("redis");
+require("dotenv").config();
 
-const redisConfig = {
-  url: process.env.REDIS_URL,
+const redisUrl = process.env.REDIS_URL;
+
+if (!redisUrl) {
+  throw new Error("❌ Missing REDIS_URL in .env file");
+}
+
+// ✅ Use non-TLS (plain TCP) connection
+const client = createClient({
+  url: redisUrl,
   socket: {
-    connectTimeout: 60000,
-    lazyConnect: true,
-    reconnectStrategy: (retries) => {
-      if (retries > 10) {
-        console.log('Too many retries on REDIS. Connection terminated');
-        return new Error('Too many retries');
-      } else {
-        return retries * 500;
-      }
-    }
-  }
-};
-
-const client = createClient(redisConfig);
-
-client.on('error', (err) => {
-  console.error('Redis Client Error:', err);
+    tls: false, // <— ensure TLS is OFF
+    connectTimeout: 10000,
+  },
 });
 
-client.on('connect', () => {
-  console.log('🔌 Connecting to Redis Cloud...');
-});
-
-client.on('ready', () => {
-  console.log('✅ Redis Cloud client ready');
-});
+client.on("connect", () => console.log("🔗 Connecting to Redis (non-TLS)..."));
+client.on("ready", () => console.log("✅ Redis connected successfully"));
+client.on("error", (err) => console.error("❌ Redis Client Error:", err.message));
 
 module.exports = client;
