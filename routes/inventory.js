@@ -129,4 +129,34 @@ router.get('/alerts', async (req, res) => {
   }
 });
 
+// Add new product
+router.post("/products", async (req, res) => {
+  try {
+    const { sku, name, qty, max_capacity, zone, shelf, cost, price } = req.body;
+
+    if (!sku || !name) {
+      return res.status(400).json({ error: "SKU and name are required" });
+    }
+
+    const newProduct = {
+      sku,
+      name,
+      qty,
+      max_capacity,
+      zone,
+      shelf,
+      cost,
+      price
+    };
+
+    // Save to Redis (using SKU as key)
+    await redisClient.hSet("products", sku, JSON.stringify(newProduct));
+
+    res.status(201).json({ message: "Product added successfully", data: newProduct });
+  } catch (err) {
+    console.error("Error adding product:", err);
+    res.status(500).json({ error: "Failed to add product" });
+  }
+});
+
 export default router;
