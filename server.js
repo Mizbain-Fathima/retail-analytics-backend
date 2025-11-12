@@ -20,7 +20,8 @@ const allowedOrigins = [
   "http://localhost:5173",             // Vite local dev
   "http://localhost:4173",             // Vite preview
   "https://retail-analytics-frontend.onrender.com", // Render frontend (replace if different)
-  "https://retail-analytics-frontend.vercel.app"    // Vercel frontend (optional)
+  "https://retail-analytics-frontend.vercel.app", // Vercel frontend (optional)
+  "https://retail-analytics-frontend-1s00.onrender.com/"
 ];
 
 app.use(
