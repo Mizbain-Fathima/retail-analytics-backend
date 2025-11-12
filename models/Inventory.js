@@ -1,4 +1,4 @@
-const redisClient = require('../config/redis');
+import redisClient from '../config/redis.js';
 
 class Inventory {
   static async addStock(sku, quantity, productData = {}) {
@@ -153,4 +153,4 @@ class Inventory {
   }
 }
 
-module.exports = Inventory;
+export default Inventory;

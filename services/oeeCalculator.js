@@ -1,5 +1,5 @@
-const redisClient = require('../config/redis');
-const Inventory = require('../models/Inventory');
+import redisClient from '../config/redis.js';
+import Inventory from '../models/Inventory.js';
 
 class OEECalculator {
   static async calculateAvailability(sku) {
@@ -117,4 +117,4 @@ class OEECalculator {
   }
 }
 
-module.exports = OEECalculator;
+export default OEECalculator;

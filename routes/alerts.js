@@ -1,6 +1,6 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const redisClient = require("../config/redis.js");
+import redisClient from "../config/redis.js";
 
 async function calculateOEEForProduct(product) {
   const qty = Number(product.qty);
@@ -74,4 +74,4 @@ router.get("/", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

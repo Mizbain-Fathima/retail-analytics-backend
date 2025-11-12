@@ -1,6 +1,8 @@
 // Backend/config/redis.js
-const { createClient } = require("redis");
-require("dotenv").config();
+import { createClient } from "redis";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const redisUrl = process.env.REDIS_URL;
 
@@ -21,4 +23,4 @@ client.on("connect", () => console.log("🔗 Connecting to Redis (non-TLS)..."))
 client.on("ready", () => console.log("✅ Redis connected successfully"));
 client.on("error", (err) => console.error("❌ Redis Client Error:", err.message));
 
-module.exports = client;
+export default client;

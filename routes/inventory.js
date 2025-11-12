@@ -1,7 +1,7 @@
-const express = require('express');
+import express from "express";
 const router = express.Router();
-const Inventory = require('../models/Inventory');
-const AlertService = require('../services/alertService');
+import Inventory from "../models/Inventory.js";
+import AlertService from'../services/alertService.js';
 
 // Add stock to a product
 router.post('/add-stock', async (req, res) => {
@@ -129,4 +129,4 @@ router.get('/alerts', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

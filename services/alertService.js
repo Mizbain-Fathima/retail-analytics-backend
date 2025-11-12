@@ -1,4 +1,4 @@
-const redisClient = require('../config/redis');
+import redisClient from'../config/redis.js';
 
 class AlertService {
   static async checkLowStockAlerts() {
@@ -97,4 +97,4 @@ class AlertService {
   }
 }
 
-module.exports = AlertService;
+export default AlertService;

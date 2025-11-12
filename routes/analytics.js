@@ -1,6 +1,6 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const redisClient = require("../config/redis.js");
+import redisClient from "../config/redis.js";
 
 router.get("/oee", async (req, res) => {
   try {
@@ -45,4 +45,4 @@ router.get("/oee", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;
